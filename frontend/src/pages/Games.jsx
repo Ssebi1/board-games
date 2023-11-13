@@ -26,7 +26,7 @@ function Games() {
     }, [])
 
     useEffect(() => {
-        if (!user) {
+        if (!user || user.type !== 'admin') {
             navigate('/')
         }
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])

@@ -32,15 +32,6 @@ function Client() {
         <>
             <Topbar user={user}/>
             <div>
-                { user ? (
-                    <>
-                        <div>{user.name}</div>
-                        <div>{user.email}</div>
-                        <div>{user.type}</div>
-                        <button onClick={logoutAction}>Logout</button>
-                    </>
-                ) : (<></>)}
-
             </div>
         </>
     )

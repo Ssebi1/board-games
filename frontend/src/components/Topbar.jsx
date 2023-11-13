@@ -18,8 +18,7 @@ function Topbar({user, activeTile}) {
                             </>
                         ) : (
                             <>
-                                <Link to={'/games'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>GAMES</Link>
-                                <Link to={'/users'} className={TopbarStyle.item} style={activeTile === 'users' ? {borderBottom: '1px solid black'} : {}}>USERS</Link>
+                                <Link to={'/events'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>Events</Link>
                             </>
                         )
                         }

@@ -9,6 +9,7 @@ import Topbar from "../components/Topbar";
 import AccountStyle from '../style/account.module.css'
 import {RiAccountPinBoxLine, RiLogoutBoxLine} from "react-icons/ri";
 import {TbDeviceGamepad} from "react-icons/tb";
+import {SlBadge} from "react-icons/sl";
 
 function Account() {
     const navigate = useNavigate()
@@ -18,10 +19,18 @@ function Account() {
     const [activeTile, setActiveTile] = useState('info')
     const infoRef = useRef()
     const prefRef = useRef()
+    const badgesRef = useRef()
 
     useEffect(() => {
-        infoRef.current.style.backgroundColor = 'white'
-        infoRef.current.style.color = 'black'
+        if (infoRef.current) {
+            infoRef.current.style.backgroundColor = 'white'
+            infoRef.current.style.color = 'black'
+        }
+
+        if (badgesRef.current) {
+            badgesRef.current.style.backgroundColor = 'white'
+            badgesRef.current.style.color = 'black'
+        }
 
         if (prefRef.current) {
             prefRef.current.style.backgroundColor = 'white'
@@ -34,6 +43,9 @@ function Account() {
         } else if (activeTile === 'pref') {
             prefRef.current.style.backgroundColor = '#393E46'
             prefRef.current.style.color = 'white'
+        } else if (activeTile === 'badges') {
+            badgesRef.current.style.backgroundColor = '#393E46'
+            badgesRef.current.style.color = 'white'
         }
     }, [activeTile])
 
@@ -60,7 +72,10 @@ function Account() {
                 <div className={AccountStyle.sidebar}>
                     <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('info')}} ref={infoRef}><RiAccountPinBoxLine/> Account info</div>
                     { user.type === 'client' ? (
-                        <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('pref')}} ref={prefRef}><TbDeviceGamepad/> Game preferences</div>
+                        <>
+                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('pref')}} ref={prefRef}><TbDeviceGamepad/> Game preferences</div>
+                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('badges')}} ref={badgesRef}><SlBadge/> Badges</div>
+                        </>
                     ) : <></>
                     }
                     <div className={AccountStyle.sidebarItem} onClick={logoutAction}><RiLogoutBoxLine/> Logout</div>
@@ -87,6 +102,13 @@ function Account() {
                         ? (
                             <>
                                 <div className={AccountStyle.mainInfoTitle}>Game preferences</div>
+                            </>
+                        ) : null
+                    }
+                    { activeTile === "badges"
+                        ? (
+                            <>
+                                <div className={AccountStyle.mainInfoTitle}>Badges</div>
                             </>
                         ) : null
                     }
