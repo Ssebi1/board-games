@@ -22,6 +22,9 @@ app.use(express.urlencoded({ extended: false }))
 // auth routes
 app.use('/api/auth', require('./routes/authRoutes'))
 
+// games routes
+app.use('/api/games', require('./routes/gameRoutes'))
+
 // error handler
 app.use(errorHandler)
 

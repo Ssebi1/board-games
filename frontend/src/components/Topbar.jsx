@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import TopbarStyle from '../style/topbar.module.css'
 import AuthStyle from "../style/auth.module.css";
 import {RiAccountCircleLine} from "react-icons/ri";
 import {Link} from "react-router-dom";
 
-function Topbar({user}) {
+function Topbar({user, activeTile}) {
     return (
         <div className={TopbarStyle.container}>
             <div className={TopbarStyle.innerContainer}>
@@ -13,11 +13,13 @@ function Topbar({user}) {
                     <div className={TopbarStyle.items}>
                         { user.type === 'admin' ? (
                             <>
+                                <Link to={'/games'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>GAMES</Link>
+                                <Link to={'/badges'} className={TopbarStyle.item} style={activeTile === 'badges' ? {borderBottom: '1px solid black'} : {}}>BADGES</Link>
                             </>
                         ) : (
                             <>
-                                <Link to={'/games'} className={TopbarStyle.item}>GAMES</Link>
-                                <Link to={'/users'} className={TopbarStyle.item}>USERS</Link>
+                                <Link to={'/games'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>GAMES</Link>
+                                <Link to={'/users'} className={TopbarStyle.item} style={activeTile === 'users' ? {borderBottom: '1px solid black'} : {}}>USERS</Link>
                             </>
                         )
                         }

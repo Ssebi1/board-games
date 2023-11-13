@@ -1,0 +1,131 @@
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.name {
+    font-size: 20px;
+}
+
+.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.add:hover {
+    background-color: #f6f6f6;
+}
+
+.addContainer {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.addTitle {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.formInputs {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.addItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.addItemInput {
+    resize: none;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background-color: #f6f6f6;
+}
+
+.playersInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.addButton {
+    width: 100px;
+    text-align: center;
+    background-color: #00ADB5;
+    padding: 10px;
+    color: white;
+    border-radius: 6px;
+    margin: 30px auto 0;
+    cursor: pointer;
+}
+
+.addButton:hover {
+    background-color: #01a1a9;
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.table thead tr {
+    background-color: #393E46;
+    color: #ffffff;
+    text-align: left;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid #393E46;
+}
+
+.actionButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.actionButton {
+    font-size: 18px;
+    background-color: white;
+    border-radius: 6px;
+    padding: 2px 4px;
+    cursor: pointer;
+}
