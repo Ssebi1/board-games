@@ -18,9 +18,18 @@ const createGame = async (data, token) => {
     return response.data
 }
 
+const deleteGame = async (id, token) => {
+    let response = await axios.delete(`${API_URL}${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+}
+
+
 const gamesService = {
     getGames,
-    createGame
+    createGame,
+    deleteGame
 }
 
 export default gamesService

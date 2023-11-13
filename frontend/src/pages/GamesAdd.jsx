@@ -8,14 +8,14 @@ import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
 import GamesStyle from '../style/games.module.css'
 import {AiOutlinePlusCircle} from "react-icons/ai";
-import {createGame, reset} from "../features/games/gamesSlice";
+import {createGame, reset, resetGame} from "../features/games/gamesSlice";
 
 function GamesAdd() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {user, isLoadingAuth, isErrorAuth, isSuccessAuth, messageAuth} = useSelector((state) => state.auth)
-    const {game, isLoadingGames, isErrorGames, isSuccessGames, messageGames} = useSelector((state) => state.games)
+    const {game, isLoadingGame, isErrorGame, isSuccessGame, messageGame} = useSelector((state) => state.games)
     const [formData, setFormData] = useState({
         title: '',
         rules: '',
@@ -30,15 +30,15 @@ function GamesAdd() {
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])
 
     useEffect(() => {
-        if (isErrorGames) {
-            toast.error(messageGames)
-        } else if (game && isSuccessGames) {
+        if (isErrorGame) {
+            toast.error(messageGame)
+        } else if (isSuccessGame) {
             navigate('/games')
             toast.success('Game successfully added')
         }
 
-        dispatch(reset())
-    }, [game, messageGames, isSuccessGames, isErrorGames, navigate, dispatch])
+        dispatch(resetGame())
+    }, [game, messageGame, isSuccessGame, isErrorGame, navigate, dispatch])
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -47,7 +47,7 @@ function GamesAdd() {
         }))
     }
 
-    if (isLoadingAuth || isLoadingGames) {
+    if (isLoadingAuth || isLoadingGame) {
         return <Spinner />
     }
 

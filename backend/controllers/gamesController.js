@@ -46,7 +46,7 @@ const deleteGame = asyncHandler(async (req, res) => {
         throw new Error('Missing fields')
     }
 
-    await Game.deleteOne({_id: req.params.id})
+    await Game.findByIdAndDelete(req.params.id)
     res.status(200).json({ id: req.params.id })
 })
 

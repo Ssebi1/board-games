@@ -14,4 +14,4 @@ router.get('/', protect, getGames)
 router.post('/', protect, createGame)
 
 // DELETE
-router.delete('/', protect, deleteGame)
+router.delete('/:id', protect, deleteGame)

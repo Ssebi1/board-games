@@ -7,15 +7,15 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
 import GamesStyle from '../style/games.module.css'
-import {AiFillDelete, AiFillEdit, AiOutlinePlusCircle} from "react-icons/ai";
-import {getGames, reset} from "../features/games/gamesSlice";
+import {AiFillDelete, AiFillEdit, AiOutlineEye, AiOutlinePlusCircle} from "react-icons/ai";
+import {deleteGame, getGames, reset, resetGame} from "../features/games/gamesSlice";
 
 function Games() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {user, isLoadingAuth, isErrorAuth, isSuccessAuth, messageAuth} = useSelector((state) => state.auth)
-    const {games, isLoadingGames, isErrorGames, isSuccessGames, messageGames} = useSelector((state) => state.games)
+    const {games, isLoadingGames, isErrorGames, isSuccessGames, messageGames, isSuccessGame, isErrorGame, messageGame, isLoadingGame} = useSelector((state) => state.games)
 
     useEffect(() => {
         dispatch(getGames())
@@ -31,7 +31,20 @@ function Games() {
         }
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])
 
-    if (isLoadingAuth || isLoadingGames) {
+    useEffect(() => {
+        if (isErrorGame) {
+            toast.error(messageGames)
+        } else if (isSuccessGame) {
+            toast.success('Game deleted')
+        }
+        dispatch(resetGame())
+    }, [isSuccessGame, isErrorGame, messageGame, dispatch])
+
+    const deleteGameAction = (id) => {
+        dispatch(deleteGame(id))
+    }
+
+    if (isLoadingAuth || isLoadingGames || isLoadingGame) {
         return <Spinner />
     }
 
@@ -60,8 +73,9 @@ function Games() {
                                     <td>{game.min_players}-{game.max_players}</td>
                                     <td>{game.rules.slice(0,30)}</td>
                                     <td className={GamesStyle.actionButtons}>
+                                        <span className={GamesStyle.actionButton}><AiOutlineEye/></span>
                                         <span className={GamesStyle.actionButton}><AiFillEdit/></span>
-                                        <span className={GamesStyle.actionButton}><AiFillDelete/></span>
+                                        <span className={GamesStyle.actionButton} onClick={() => deleteGameAction(game._id)}><AiFillDelete/></span>
                                     </td>
                                 </tr>
                             )
