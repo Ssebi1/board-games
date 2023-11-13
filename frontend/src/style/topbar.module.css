@@ -1,0 +1,59 @@
+.container {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px -7px #393E46;
+}
+
+.innerContainer {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #efefef;
+    padding: 2px 8px;
+    gap: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.icon {
+    margin-top: 6px;
+}
+
+a {
+    color: black;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    gap: 30px;
+}
+
+.items {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    font-size: 16px;
+    margin-top: 6px;
+}

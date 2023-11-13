@@ -9,3 +9,7 @@
 - go to frontend directory
 - run `npm install`
 - run `npm run dev`
+
+## Admin account
+- email: `admin@yahoo.com`
+- password: `12341234`

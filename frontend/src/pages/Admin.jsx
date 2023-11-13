@@ -7,14 +7,14 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
 
-function Client() {
+function Admin() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {user, isLoadingAuth, isErrorAuth, isSuccessAuth, messageAuth} = useSelector((state) => state.auth)
 
     useEffect(() => {
-        if (!user || user.type !== 'client') {
+        if (!user || user.type !== 'admin') {
             navigate('/')
         }
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])
@@ -46,4 +46,4 @@ function Client() {
     )
 }
 
-export default Client
+export default Admin

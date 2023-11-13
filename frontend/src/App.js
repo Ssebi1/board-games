@@ -5,6 +5,7 @@ import React from 'react';
 import {Toaster} from "react-hot-toast";
 import Landing from "./pages/Landing";
 import Client from "./pages/Client";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/client' element={<Client />} />
+              <Route path='/admin' element={<Admin />} />
             </Routes>
           </div>
         </Router>
