@@ -40,9 +40,28 @@ function Account() {
         pref_max_players: 2
     })
 
+    const resetFormData = () => {
+        if (user) {
+            let newSelectedGamesOptions = []
+            user.pref_games.map((game) => {
+                newSelectedGamesOptions.push({value: game._id, label: game.title})
+            })
+            setFormData({
+                name: user.name,
+                email: user.email,
+                location: user.location,
+                pref_games: newSelectedGamesOptions,
+                pref_max_players: user.pref_max_players,
+                pref_min_players: user.pref_min_players
+            })
+        }
+    }
+
     useEffect(() => {
         if (isSuccessAuth) {
             setActiveTile('info')
+            setType('view')
+            resetFormData()
         }
     }, [isSuccessAuth])
 
@@ -62,20 +81,7 @@ function Account() {
     }, [games, isSuccessGames])
 
     useEffect(() => {
-        if (user) {
-            let newSelectedGamesOptions = []
-            user.pref_games.map((game) => {
-                newSelectedGamesOptions.push({value: game._id, label: game.title})
-            })
-            setFormData({
-                name: user.name,
-                email: user.email,
-                location: user.location,
-                pref_games: newSelectedGamesOptions,
-                pref_max_players: user.pref_max_players,
-                pref_min_players: user.pref_min_players
-            })
-        }
+        resetFormData()
     }, [user])
 
     useEffect(() => {
@@ -163,11 +169,11 @@ function Account() {
             <Topbar user={user}/>
             <div className='contentContainer' style={{flexDirection: 'row', gap: '30px'}}>
                 <div className={AccountStyle.sidebar}>
-                    <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('info')}} ref={infoRef} style={{color: 'white', backgroundColor: '#393E46'}}><RiAccountPinBoxLine/> Account info</div>
+                    <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('info'); setType('view'); resetFormData()}} ref={infoRef} style={{color: 'white', backgroundColor: '#393E46'}}><RiAccountPinBoxLine/> Account info</div>
                     { user.type === 'client' ? (
                         <>
-                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('pref')}} ref={prefRef}><TbDeviceGamepad/> Game preferences</div>
-                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('badges')}} ref={badgesRef}><SlBadge/> Badges</div>
+                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('pref'); setType('view'); resetFormData()}} ref={prefRef}><TbDeviceGamepad/> Game preferences</div>
+                            <div className={AccountStyle.sidebarItem} onClick={() => {setActiveTile('badges'); setType('view'); resetFormData()}} ref={badgesRef}><SlBadge/> Badges</div>
                         </>
                     ) : <></>
                     }
