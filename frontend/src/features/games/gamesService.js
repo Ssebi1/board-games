@@ -10,6 +10,14 @@ const getGames = async (token) => {
     return response.data
 }
 
+// Get game
+const getGame = async (id, token) => {
+    let response = await axios.get(`${API_URL}${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+}
+
 // Create game
 const createGame = async (data, token) => {
     let response = await axios.post(API_URL, data, {
@@ -25,11 +33,21 @@ const deleteGame = async (id, token) => {
     return response.data
 }
 
+// Update game
+const updateGame = async (id, data, token) => {
+    let response = await axios.put(`${API_URL}${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+}
+
 
 const gamesService = {
     getGames,
     createGame,
-    deleteGame
+    deleteGame,
+    getGame,
+    updateGame
 }
 
 export default gamesService

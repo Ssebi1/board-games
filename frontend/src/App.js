@@ -8,7 +8,7 @@ import Client from "./pages/Client";
 import Admin from "./pages/Admin";
 import Account from "./pages/Account";
 import Games from "./pages/Games";
-import GamesAdd from "./pages/GamesAdd";
+import GamePage from "./pages/GamePage";
 import Badges from "./pages/Badges";
 
 function App() {
@@ -26,7 +26,9 @@ function App() {
               <Route path='/admin' element={<Admin />} />
               <Route path='/account' element={<Account />} />
               <Route path='/games' element={<Games />} />
-              <Route path='/games/add' element={<GamesAdd />} />
+              <Route path='/games/add' element={<GamePage type='add' />} />
+              <Route path='/games/:id/view' element={<GamePage type='view' />} />
+              <Route path='/games/:id/edit' element={<GamePage type='edit' />} />
               <Route path='/badges' element={<Badges />} />
             </Routes>
           </div>

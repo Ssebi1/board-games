@@ -32,6 +32,14 @@ const getGames = asyncHandler(async (req, res) => {
     res.status(200).send(games)
 })
 
+// @desc Get game
+// @route GET /api/games/{id}
+// @access Private
+const getGame = asyncHandler(async (req, res) => {
+    const game = await Game.findOne({_id:req.params.id})
+    res.status(200).send(game)
+})
+
 // @desc Delete game
 // @route DELETE /api/games/{id}
 // @access Private
@@ -51,9 +59,34 @@ const deleteGame = asyncHandler(async (req, res) => {
 })
 
 
+// @desc Update game
+// @route PUT /api/games/:id
+// @access Private
+const updateGame = asyncHandler(async (req, res) => {
+    if (req.user.type !== "admin") {
+        res.status(400)
+        throw new Error('Unauthorized')
+    }
+
+    const game = await Game.findById(req.params.id)
+
+    if (!game) {
+        res.status(400)
+        throw new Error('Game not found')
+    }
+
+    const updatedGame = await Game.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    })
+
+    res.status(200).json(updatedGame)
+})
+
 
 module.exports = {
     getGames,
     createGame,
-    deleteGame
+    deleteGame,
+    getGame,
+    updateGame
 }

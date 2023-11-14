@@ -73,8 +73,8 @@ function Games() {
                                     <td>{game.min_players}-{game.max_players}</td>
                                     <td>{game.rules.slice(0,30)}</td>
                                     <td className={GamesStyle.actionButtons}>
-                                        <span className={GamesStyle.actionButton}><AiOutlineEye/></span>
-                                        <span className={GamesStyle.actionButton}><AiFillEdit/></span>
+                                        <Link to={`${game._id}/view`} className={GamesStyle.actionButton}><AiOutlineEye/></Link>
+                                        <Link to={`${game._id}/edit`} className={GamesStyle.actionButton}><AiFillEdit/></Link>
                                         <span className={GamesStyle.actionButton} onClick={() => deleteGameAction(game._id)}><AiFillDelete/></span>
                                     </td>
                                 </tr>

@@ -27,6 +27,19 @@ export const getGames = createAsyncThunk('games/get', async (args, thunkAPI) => 
     }
 })
 
+export const getGame = createAsyncThunk('game/get', async (id, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await gamesService.getGame(id, token)
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const deleteGame = createAsyncThunk('restaurants/delete/soft', async (id,thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
@@ -40,11 +53,25 @@ export const deleteGame = createAsyncThunk('restaurants/delete/soft', async (id,
     }
 })
 
-
 export const createGame = createAsyncThunk('games/create', async (data, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
         return await gamesService.createGame(data, token)
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const updateGame = createAsyncThunk('game/update', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        const id = data.id
+        delete data['id']
+        return await gamesService.updateGame(id, data, token)
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -117,6 +144,34 @@ export const gamesSlice = createSlice({
                 });
             })
             .addCase(deleteGame.rejected, (state, action) => {
+                state.isLoadingGame = false
+                state.isErrorGame = true
+                state.messageGame = action.payload
+            })
+            .addCase(getGame.pending, (state) => {
+                state.isLoadingGame = true
+            })
+            .addCase(getGame.fulfilled, (state, action) => {
+                state.isLoadingGame = false
+                state.isSuccessGame = true
+                state.isErrorGame = false
+                state.game = action.payload
+            })
+            .addCase(getGame.rejected, (state, action) => {
+                state.isLoadingGame = false
+                state.isErrorGame = true
+                state.messageGame = action.payload
+            })
+            .addCase(updateGame.pending, (state) => {
+                state.isLoadingGame = true
+            })
+            .addCase(updateGame.fulfilled, (state, action) => {
+                state.isLoadingGame = false
+                state.isSuccessGame = true
+                state.isErrorGame = false
+                state.game = action.payload
+            })
+            .addCase(updateGame.rejected, (state, action) => {
                 state.isLoadingGame = false
                 state.isErrorGame = true
                 state.messageGame = action.payload
