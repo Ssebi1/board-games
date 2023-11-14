@@ -9,6 +9,7 @@ import Topbar from "../components/Topbar";
 import GamesStyle from '../style/games.module.css'
 import {AiFillDelete, AiFillEdit, AiOutlineEye, AiOutlinePlusCircle} from "react-icons/ai";
 import {deleteGame, getGames, reset, resetGame} from "../features/games/gamesSlice";
+import GamesTable from "../components/GamesTable";
 
 function Games() {
     const navigate = useNavigate()
@@ -56,32 +57,7 @@ function Games() {
                     <div className={GamesStyle.name}>Available games</div>
                     <Link to={'/games/add'} className={GamesStyle.add}><AiOutlinePlusCircle/> Add new</Link>
                 </div>
-                <table className={GamesStyle.table}>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Players</th>
-                            <th>Rules</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { games.map((game) => {
-                            return(
-                                <tr>
-                                    <td>{game.title}</td>
-                                    <td>{game.min_players}-{game.max_players}</td>
-                                    <td>{game.rules.slice(0,30)}</td>
-                                    <td className={GamesStyle.actionButtons}>
-                                        <Link to={`${game._id}/view`} className={GamesStyle.actionButton}><AiOutlineEye/></Link>
-                                        <Link to={`${game._id}/edit`} className={GamesStyle.actionButton}><AiFillEdit/></Link>
-                                        <span className={GamesStyle.actionButton} onClick={() => deleteGameAction(game._id)}><AiFillDelete/></span>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                <GamesTable games={games} limit={1000} showActions={true} deleteGameAction={deleteGameAction}/>
             </div>
         </>
     )
