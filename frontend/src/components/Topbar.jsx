@@ -19,6 +19,7 @@ function Topbar({user, activeTile}) {
                         ) : (
                             <>
                                 <Link to={'/events'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>Events</Link>
+                                <Link to={'/client/games'} className={TopbarStyle.item} style={activeTile === 'games' ? {borderBottom: '1px solid black'} : {}}>Games</Link>
                             </>
                         )
                         }

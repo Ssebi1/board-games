@@ -11,6 +11,7 @@ import Games from "./pages/Games";
 import GamePage from "./pages/GamePage";
 import Badges from "./pages/Badges";
 import Events from "./pages/Events";
+import GamesClient from "./pages/GamesClient";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path='/games/:id/edit' element={<GamePage type='edit' />} />
               <Route path='/badges' element={<Badges />} />
               <Route path='/events' element={<Events />} />
+              <Route path='/client/games' element={<GamesClient />} />
             </Routes>
           </div>
         </Router>
