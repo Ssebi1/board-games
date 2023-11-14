@@ -20,6 +20,18 @@ const userSchema = mongoose.Schema({
     },
     location: {
         type: String
+    },
+    pref_games: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Game'
+    }],
+    pref_min_players: {
+        type: Number,
+        default: 2
+    },
+    pref_max_players: {
+        type: Number,
+        default: 2
     }
 }, {
     timestamps: true

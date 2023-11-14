@@ -57,3 +57,13 @@
     border-radius: 6px;
     background-color: #efefef;
 }
+
+.button {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background-color: #393E46;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}

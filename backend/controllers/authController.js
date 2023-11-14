@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const {Types} = require("mongoose");
 
 // Generate JWT
 const generateToken = (id) => {
@@ -21,7 +22,7 @@ const login = asyncHandler(async (req, res) => {
         throw new Error('Missing fields')
     }
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({email}).populate('pref_games')
 
     if(!user || !(await bcrypt.compare(password, user.password))) {
         res.status(400)
@@ -34,6 +35,9 @@ const login = asyncHandler(async (req, res) => {
         email: user.email,
         type: user.type,
         location: user.location,
+        pref_games: user.pref_games,
+        pref_min_players: user.pref_min_players,
+        pref_max_players: user.pref_max_players,
         token: generateToken(user._id)
     })
 })
@@ -77,11 +81,53 @@ const register = asyncHandler(async  (req, res) => {
         name: user.name,
         email: user.email,
         type: user.type,
+        location: user.location,
+        pref_games: user.pref_games,
+        pref_min_players: user.pref_min_players,
+        pref_max_players: user.pref_max_players,
+        token: generateToken(user._id)
+    })
+})
+
+// @desc Update account
+// @route PUT /api/auth
+// @access Private
+const updateAccount = asyncHandler(async (req, res) => {
+    const {name, location, pref_games, pref_min_players, pref_max_players} = req.body
+    let pref_games_ids = []
+    pref_games.forEach(game => {
+        pref_games_ids.push(game.value)
+    })
+    console.log(pref_games)
+
+    if (!req.user) {
+        res.status(400)
+        throw new Error('Unauthorized')
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, {
+        name,
+        location,
+        pref_games: pref_games_ids,
+        pref_min_players,
+        pref_max_players
+    }, {new: true}).populate('pref_games')
+
+    res.status(200).json({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        type: user.type,
+        location: user.location,
+        pref_games: user.pref_games,
+        pref_min_players: user.pref_min_players,
+        pref_max_players: user.pref_max_players,
         token: generateToken(user._id)
     })
 })
 
 module.exports = {
     login,
-    register
+    register,
+    updateAccount
 }
