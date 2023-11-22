@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = '/api/games/'
+const API_URL = '/api/games'
 
 // Get games
 const getGames = async (token) => {
@@ -10,9 +10,17 @@ const getGames = async (token) => {
     return response.data
 }
 
+// Get recommended games
+const getRecGames = async (token) => {
+    let response = await axios.get(`${API_URL}?recommended=true`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+}
+
 // Get game
 const getGame = async (id, token) => {
-    let response = await axios.get(`${API_URL}${id}`, {
+    let response = await axios.get(`${API_URL}/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return response.data
@@ -27,7 +35,7 @@ const createGame = async (data, token) => {
 }
 
 const deleteGame = async (id, token) => {
-    let response = await axios.delete(`${API_URL}${id}`, {
+    let response = await axios.delete(`${API_URL}/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return response.data
@@ -35,7 +43,7 @@ const deleteGame = async (id, token) => {
 
 // Update game
 const updateGame = async (id, data, token) => {
-    let response = await axios.put(`${API_URL}${id}`, data, {
+    let response = await axios.put(`${API_URL}/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return response.data
@@ -44,6 +52,7 @@ const updateGame = async (id, data, token) => {
 
 const gamesService = {
     getGames,
+    getRecGames,
     createGame,
     deleteGame,
     getGame,

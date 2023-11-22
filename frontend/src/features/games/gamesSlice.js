@@ -4,6 +4,7 @@ import gamesService from './gamesService'
 
 const initialState = {
     games: [],
+    recGames: [],
     game: null,
     isErrorGames: false,
     isSuccessGames: false,
@@ -18,6 +19,19 @@ export const getGames = createAsyncThunk('games/get', async (args, thunkAPI) => 
     try {
         const token = thunkAPI.getState().auth.user.token
         return await gamesService.getGames(token)
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const getRecGames = createAsyncThunk('games/get/recommended', async (args, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await gamesService.getRecGames(token)
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -116,6 +130,21 @@ export const gamesSlice = createSlice({
                 state.isErrorGames = true
                 state.messageGames = action.payload
                 state.games = null
+            })
+            .addCase(getRecGames.pending, (state) => {
+                state.isLoadingGames = true
+            })
+            .addCase(getRecGames.fulfilled, (state, action) => {
+                state.isLoadingGames = false
+                state.isSuccessGames = true
+                state.isErrorGames = false
+                state.recGames = action.payload
+            })
+            .addCase(getRecGames.rejected, (state, action) => {
+                state.isLoadingGames = false
+                state.isErrorGames = true
+                state.messageGames = action.payload
+                state.recGames = null
             })
             .addCase(createGame.pending, (state) => {
                 state.isLoadingRestaurant = true

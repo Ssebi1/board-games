@@ -28,7 +28,29 @@ const createGame = asyncHandler(async  (req, res) => {
 // @route GET /api/games
 // @access Private
 const getGames = asyncHandler(async (req, res) => {
-    const games = await Game.find().sort({createdAt: -1})
+    if(!req.user) {
+        res.status(400)
+        throw new Error('Unauthorized')
+    }
+    let games = await Game.find().sort({createdAt: -1})
+
+    if (req.user.type === 'client' && req.query.recommended && req.query.recommended === "true") {
+        let pref_games_ids = req.user.pref_games.map(game => game._id.toString())
+
+        for (let index in games) {
+            games[index].score = 0
+            if (pref_games_ids.includes(games[index].id)) {
+                games[index].score += 10
+            }
+            if (games[index].min_players >= req.user.pref_min_players) {
+                games[index].score += 3
+            }
+            if (games[index].max_players <= req.user.pref_max_players) {
+                games[index].score += 3
+            }
+        }
+        games.sort((a, b) => b.score - a.score).slice(0, 4)
+    }
     res.status(200).send(games)
 })
 

@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner'
 import React from 'react';
 import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
-import {getGames, reset} from "../features/games/gamesSlice";
+import {getGames, getRecGames, reset} from "../features/games/gamesSlice";
 import GamesClientsStyle from '../style/games-clients.module.css'
 import GameClient from "../components/GameClient";
 import GameModal from "../components/GameModal";
@@ -15,7 +15,7 @@ function GamesClients() {
     const dispatch = useDispatch()
 
     const {user, isLoadingAuth, isErrorAuth, isSuccessAuth, messageAuth} = useSelector((state) => state.auth)
-    const {games, isLoadingGames, isErrorGames, isSuccessGames, messageGames} = useSelector((state) => state.games)
+    const {games, recGames, isLoadingGames, isErrorGames, isSuccessGames, messageGames} = useSelector((state) => state.games)
     const [gameSelected, setGameSelected] = React.useState(null)
 
     const settings = {
@@ -28,6 +28,7 @@ function GamesClients() {
 
     useEffect(() => {
         dispatch(getGames())
+        dispatch(getRecGames())
     }, [])
 
     useEffect(() => {
@@ -55,7 +56,7 @@ function GamesClients() {
                     <>
                         <div className={GamesClientsStyle.title}>Recommended games</div>
                                 <div className={GamesClientsStyle.gamesContainer}>
-                            {games && games.map((game) => (
+                            {recGames && recGames.map((game) => (
                                 <GameClient game={game} setGameSelected={setGameSelected} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
                             ))}
                         </div>

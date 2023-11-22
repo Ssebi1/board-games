@@ -13,3 +13,7 @@
 ## Admin account
 - email: `admin@yahoo.com`
 - password: `12341234`
+- 
+## Client account
+- email: `client@yahoo.com`
+- password: `12341234`
