@@ -65,3 +65,9 @@
     overflow-x: auto;
     margin-bottom: 30px;
 }
+
+.gameFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

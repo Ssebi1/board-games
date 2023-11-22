@@ -36,6 +36,11 @@ function GamesClients() {
         }
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])
 
+    const isGameFavourite = (game) => {
+        console.log(game, user.pref_games.map((game) => game._id).includes(game._id))
+        return user.pref_games.map((game) => game._id).includes(game._id)
+    }
+
     if (isLoadingAuth || isLoadingGames) {
         return <Spinner />
     }
@@ -51,13 +56,13 @@ function GamesClients() {
                         <div className={GamesClientsStyle.title}>Recommended games</div>
                                 <div className={GamesClientsStyle.gamesContainer}>
                             {games && games.map((game) => (
-                                <GameClient game={game} setGameSelected={setGameSelected}/>
+                                <GameClient game={game} setGameSelected={setGameSelected} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
                             ))}
                         </div>
                         <div className={GamesClientsStyle.title}>All games</div>
                         <div className={GamesClientsStyle.gamesContainer}>
                             {games && games.map((game) => (
-                                <GameClient game={game} setGameSelected={setGameSelected}/>
+                                <GameClient game={game} setGameSelected={setGameSelected} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
                             ))}
                         </div>
                     </>
