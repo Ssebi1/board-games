@@ -3,7 +3,7 @@
     font-weight: bold;
 }
 
-.gameContainer {
+.gameContainer, .gameModalContainer {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -14,6 +14,28 @@
     height: 100%;
     align-self: stretch;
     min-width: 200px;
+    cursor: pointer;
+}
+
+.gameModalContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: auto;
+    padding-bottom: 70px;
+}
+
+.closeModal {
+    cursor: pointer;
+    font-size: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+.gameModalContainer .gamePlayers{
+    justify-content: center;
 }
 
 .gameTitle {
