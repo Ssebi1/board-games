@@ -51,7 +51,7 @@ function Events() {
                         </div>
                         <div className={EventsStyle.container}>
                             {events && events.map((event) => (
-                                <Event event={event} setGameSelected={eventSelected}/>
+                                <Event event={event} setEventSelected={setEventSelected}/>
                             ))}
                         </div>
                         <div className={EventsStyle.title}>Past events</div>

@@ -37,11 +37,6 @@ function GamesClients() {
         }
     }, [user, isErrorAuth, isSuccessAuth, messageAuth, dispatch, navigate])
 
-    const isGameFavourite = (game) => {
-        console.log(game, user.pref_games.map((game) => game._id).includes(game._id))
-        return user.pref_games.map((game) => game._id).includes(game._id)
-    }
-
     if (isLoadingAuth || isLoadingGames) {
         return <Spinner />
     }
