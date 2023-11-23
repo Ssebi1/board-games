@@ -33,6 +33,10 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: ['true', 'Please add a location']
     },
+    status: {
+        type: String,
+        default: 'created'
+    },
     // messages : [{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Message'

@@ -15,6 +15,7 @@
     align-self: stretch;
     min-width: 200px;
     cursor: pointer;
+    max-width: 300px;
 }
 
 .gameModalContainer {

@@ -33,7 +33,7 @@ const getEvents = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Unauthorized')
     }
-    let events = await Event.find().sort({createdAt: -1})
+    let events = await Event.find().sort({date: 1}).populate('host')
     // TODO: filter events by user
     res.status(200).send(events)
 })

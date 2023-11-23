@@ -58,6 +58,7 @@ function EventAdd() {
         }
         if (isSuccessEvent) {
             toast.success('Event created successfully!')
+            resetEvent()
             navigate('/events')
         }
     }, [isErrorEvent, isSuccessEvent, messageEvent, dispatch, navigate])
