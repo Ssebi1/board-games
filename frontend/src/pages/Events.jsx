@@ -36,7 +36,7 @@ function Events() {
 
     return (
         <>
-            <Topbar user={user} activeTile={'badges'}/>
+            <Topbar user={user} activeTile={'events'}/>
             <div className='contentContainer' style={{flexDirection: 'column'}}>
             </div>
         </>

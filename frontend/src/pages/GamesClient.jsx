@@ -48,7 +48,7 @@ function GamesClients() {
 
     return (
         <>
-            <Topbar user={user} activeTile={'badges'}/>
+            <Topbar user={user} activeTile={'games'}/>
             <div className='contentContainer' style={{flexDirection: 'column'}}>
                 { gameSelected ? (
                     <GameModal game={gameSelected} setGameSelected={setGameSelected}/>
@@ -69,7 +69,6 @@ function GamesClients() {
                     </>
                     )
                 }
-
             </div>
         </>
     )
