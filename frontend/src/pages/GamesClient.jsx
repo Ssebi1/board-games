@@ -8,7 +8,7 @@ import Topbar from "../components/Topbar";
 import {getGames, getRecGames, reset} from "../features/games/gamesSlice";
 import GamesClientsStyle from '../style/games-clients.module.css'
 import GameClient from "../components/GameClient";
-import GameModal from "../components/GameModal";
+import GameModal from "./GameModal";
 
 function GamesClients() {
     const navigate = useNavigate()
@@ -16,7 +16,6 @@ function GamesClients() {
 
     const {user, isLoadingAuth, isErrorAuth, isSuccessAuth, messageAuth} = useSelector((state) => state.auth)
     const {games, recGames, isLoadingGames, isErrorGames, isSuccessGames, messageGames} = useSelector((state) => state.games)
-    const [gameSelected, setGameSelected] = React.useState(null)
 
     const settings = {
         dots: true,
@@ -45,25 +44,20 @@ function GamesClients() {
         <>
             <Topbar user={user} activeTile={'games'}/>
             <div className='contentContainer' style={{flexDirection: 'column'}}>
-                { gameSelected ? (
-                    <GameModal game={gameSelected} setGameSelected={setGameSelected}/>
-                ) : (
-                    <>
-                        <div className={GamesClientsStyle.title}>Recommended games</div>
-                                <div className={GamesClientsStyle.gamesContainer}>
-                            {recGames && recGames.map((game) => (
-                                <GameClient game={game} setGameSelected={setGameSelected} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
-                            ))}
-                        </div>
-                        <div className={GamesClientsStyle.title}>All games</div>
-                        <div className={GamesClientsStyle.gamesContainer}>
-                            {games && games.map((game) => (
-                                <GameClient game={game} setGameSelected={setGameSelected} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
-                            ))}
-                        </div>
-                    </>
-                    )
-                }
+                <>
+                    <div className={GamesClientsStyle.title}>Recommended games</div>
+                            <div className={GamesClientsStyle.gamesContainer}>
+                        {recGames && recGames.map((game) => (
+                            <GameClient game={game}isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
+                        ))}
+                    </div>
+                    <div className={GamesClientsStyle.title}>All games</div>
+                    <div className={GamesClientsStyle.gamesContainer}>
+                        {games && games.map((game) => (
+                            <GameClient game={game} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
+                        ))}
+                    </div>
+                </>
             </div>
         </>
     )

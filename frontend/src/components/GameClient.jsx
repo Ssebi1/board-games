@@ -2,10 +2,11 @@ import React, {useRef, useState} from 'react';
 import GamesClientsStyle from '../style/games-clients.module.css'
 import {MdPeopleAlt} from "react-icons/md";
 import {FaHeart} from "react-icons/fa";
+import {Link} from "react-router-dom";
 
-function GameClient({game, setGameSelected, isFavourite}) {
+function GameClient({game, isFavourite}) {
     return (
-        <div className={GamesClientsStyle.gameContainer} onClick={() => {setGameSelected(game)}}>
+        <Link to={`/game/${game._id}`} className={GamesClientsStyle.gameContainer}>
             <div className={GamesClientsStyle.gameTitle}>{game.title}</div>
             <div className={GamesClientsStyle.gameRules}>{game.rules.slice(0, 150)}</div>
             <div className={GamesClientsStyle.gameFooter}>
@@ -17,7 +18,7 @@ function GameClient({game, setGameSelected, isFavourite}) {
                 )}
 
             </div>
-        </div>
+        </Link>
     )
 }
 

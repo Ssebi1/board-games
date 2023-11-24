@@ -14,6 +14,7 @@ import Events from "./pages/Events";
 import GamesClient from "./pages/GamesClient";
 import EventAdd from "./pages/EventAdd";
 import EventModal from "./pages/EventModal";
+import GameModal from "./pages/GameModal";
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
               <Route path='/admin' element={<Admin />} />
               <Route path='/account' element={<Account />} />
               <Route path='/games' element={<Games />} />
-              <Route path='/games/add' element={<GamePage type='add' />} />
+              <Route path='/games' element={<Games />} />
+              <Route path='/game/:id' element={<GameModal />} />
               <Route path='/games/:id/view' element={<GamePage type='view' />} />
               <Route path='/games/:id/edit' element={<GamePage type='edit' />} />
               <Route path='/badges' element={<Badges />} />

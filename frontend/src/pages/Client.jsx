@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner'
 import React from 'react';
 import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
-import GameModal from "../components/GameModal";
+import GameModal from "./GameModal";
 import GamesClientsStyle from "../style/games-clients.module.css";
 import GameClient from "../components/GameClient";
 import {getRecGames} from "../features/games/gamesSlice";
@@ -56,7 +56,7 @@ function Client() {
                 <div className={EventsStyle.title}>Recommended events</div>
                 <div className={EventsStyle.container}>
                     {events && events.map((event) => (
-                        <Event event={event} setEventSelected={() => {}}/>
+                        <Event event={event}/>
                     ))}
                 </div>
             </div>
