@@ -3,13 +3,12 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
 import Spinner from '../components/Spinner'
 import React from 'react';
-import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
 import {getEvents, reset} from "../features/events/eventsSlice";
-import GameModal from "../components/GameModal";
 import EventsStyle from "../style/events.module.css";
 import Event from "../components/Event";
 import {FaPlus} from "react-icons/fa";
+import EventModal from "./EventModal";
 
 function Events() {
     const navigate = useNavigate()
@@ -41,23 +40,18 @@ function Events() {
         <>
             <Topbar user={user} activeTile={'events'}/>
             <div className='contentContainer' style={{flexDirection: 'column'}}>
-                { eventSelected ? (
-                    <GameModal event={eventSelected} setEventSelected={setEventSelected}/>
-                ) : (
-                    <>
-                        <div className={EventsStyle.header}>
-                            <div className={EventsStyle.title}>All events</div>
-                            <Link to='/events/add' className={EventsStyle.addEvent}><FaPlus /> Add event</Link>
-                        </div>
-                        <div className={EventsStyle.container}>
-                            {events && events.map((event) => (
-                                <Event event={event} setEventSelected={setEventSelected}/>
-                            ))}
-                        </div>
-                        <div className={EventsStyle.title}>Past events</div>
-                    </>
-                )
-                }
+                <>
+                    <div className={EventsStyle.header}>
+                        <div className={EventsStyle.title}>All events</div>
+                        <Link to='/events/add' className={EventsStyle.addEvent}><FaPlus /> Add event</Link>
+                    </div>
+                    <div className={EventsStyle.container}>
+                        {events && events.map((event) => (
+                            <Event event={event}/>
+                        ))}
+                    </div>
+                    <div className={EventsStyle.title}>Past events</div>
+                </>
             </div>
         </>
     )

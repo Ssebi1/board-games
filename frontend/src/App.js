@@ -13,6 +13,7 @@ import Badges from "./pages/Badges";
 import Events from "./pages/Events";
 import GamesClient from "./pages/GamesClient";
 import EventAdd from "./pages/EventAdd";
+import EventModal from "./pages/EventModal";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path='/games/:id/edit' element={<GamePage type='edit' />} />
               <Route path='/badges' element={<Badges />} />
               <Route path='/events' element={<Events />} />
+              <Route path='/event/:id' element={<EventModal />} />
               <Route path='/events/add' element={<EventAdd />} />
               <Route path='/client/games' element={<GamesClient />} />
             </Routes>

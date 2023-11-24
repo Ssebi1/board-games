@@ -33,7 +33,7 @@ const getEvents = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Unauthorized')
     }
-    let events = await Event.find().sort({date: 1}).populate('host')
+    let events = await Event.find().sort({date: 1}).populate('host').populate('suggested_games').populate('game')
     // TODO: filter events by user
     res.status(200).send(events)
 })
@@ -42,7 +42,7 @@ const getEvents = asyncHandler(async (req, res) => {
 // @route GET /api/event/{id}
 // @access Private
 const getEvent = asyncHandler(async (req, res) => {
-    const event = await Event.findById(req.params.id)
+    const event = await Event.findById(req.params.id).populate('host').populate('suggested_games').populate('game')
     res.status(200).send(event)
 })
 
@@ -82,7 +82,7 @@ const updateEvent = asyncHandler(async (req, res) => {
 
     const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
-    })
+    }).populate('host').populate('suggested_games').populate('game')
 
     res.status(200).json(updatedEvent)
 })

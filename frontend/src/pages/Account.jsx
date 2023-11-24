@@ -235,7 +235,7 @@ function Account() {
                                             isDisabled={type === 'view'}
                                         />
                                     </div>
-                                    <label className={AccountStyle.infoItemLabel} style={{marginBottom: '-10px'}}>Preffered number of players</label>
+                                    <label className={AccountStyle.infoItemLabel} style={{marginBottom: '-10px'}}>Preferred number of players</label>
                                     <div className={AccountStyle.infoItem} style={{display: 'flex', flexDirection:'row', alignItems: 'center', gap: '15px'}}>
                                         <input type='number' className={GamesStyle.addItemInput} min={2} name='pref_min_players' value={formData.pref_min_players} onChange={onChange} disabled={type === 'view'}/>
                                         <div>to</div>
