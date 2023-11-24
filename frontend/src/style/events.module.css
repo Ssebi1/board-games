@@ -32,9 +32,27 @@
     padding: 5px 15px;
     border-radius: 6px;
     gap: 10px;
+    font-size: 14px;
 }
 
 .addEvent:hover {
+    background-color: #f8f8f8;
+}
+
+.viewMore {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: #fff;
+    padding: 5px 15px;
+    border-radius: 6px;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.viewMore:hover {
     background-color: #f8f8f8;
 }
 

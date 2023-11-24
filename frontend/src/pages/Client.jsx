@@ -14,6 +14,7 @@ import EventsStyle from "../style/events.module.css";
 import {FaPlus} from "react-icons/fa";
 import Event from "../components/Event";
 import {getEvents} from "../features/events/eventsSlice";
+import {MdOutlineArrowForwardIos} from "react-icons/md";
 
 function Client() {
     const navigate = useNavigate()
@@ -47,13 +48,19 @@ function Client() {
         <>
             <Topbar user={user}/>
             <div className='contentContainer' style={{flexDirection: 'column'}}>
-                <div className={GamesClientsStyle.title}>Recommended games</div>
+                <div className={EventsStyle.header}>
+                    <div className={EventsStyle.title}>Recommended games</div>
+                    <Link to='/events' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
+                </div>
                 <div className={GamesClientsStyle.gamesContainer}>
                     {recGames && recGames.map((game) => (
                         <GameClient game={game} setGameSelected={() => {}} isFavourite={user.pref_games.map((game) => game._id).includes(game._id)}/>
                     ))}
                 </div>
-                <div className={EventsStyle.title}>Recommended events</div>
+                <div className={EventsStyle.header}>
+                    <div className={EventsStyle.title}>Recommended events</div>
+                    <Link to='/client/games' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
+                </div>
                 <div className={EventsStyle.container}>
                     {events && events.map((event) => (
                         <Event event={event}/>
