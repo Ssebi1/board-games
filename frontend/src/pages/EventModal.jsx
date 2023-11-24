@@ -12,10 +12,11 @@ import GamesClientsStyle from "../style/games-clients.module.css";
 import {MdClose} from "react-icons/md";
 import Spinner from "../components/Spinner";
 import Select from "react-select";
-import {getEvent, reset, resetEvent, updateEvent} from "../features/events/eventsSlice";
+import {deleteEvent, getEvent, reset, resetEvent, updateEvent} from "../features/events/eventsSlice";
 import {IoGameController} from "react-icons/io5";
 import {FaBan, FaCheck, FaGamepad} from "react-icons/fa";
 import Topbar from "../components/Topbar";
+import toast from "react-hot-toast";
 
 function EventModal() {
     const navigate = useNavigate()
@@ -92,6 +93,12 @@ function EventModal() {
         dispatch(updateEvent(data))
     }
 
+    const deleteEventAction = () => {
+        dispatch(deleteEvent(id))
+        navigate('/events')
+        toast.success('Event deleted successfully')
+    }
+
     if (isLoadingGames || isLoadingAuth || isLoadingEvent) {
         return <Spinner/>
     }
@@ -114,7 +121,7 @@ function EventModal() {
                     className="basic-select"
                     classNamePrefix="select"
                     onChange={(e) => {selectEventGame(e)}}
-                    value={{value: event.game._id, label: event.game.title}}
+                    value={{value: event.game ? event.game._id : null, label: event.game ? event.game.title : null}}
                 />
             </div>
             <div>
@@ -152,7 +159,7 @@ function EventModal() {
             </div>
             <div className={EventsStyle.eventRow} style={{margin: '0 auto', marginTop: '30px'}}>
                 <button className={EventsStyle.eventModalButton}>Start</button>
-                <button className={EventsStyle.eventModalButton}>Delete</button>
+                <button className={EventsStyle.eventModalButton} onClick={deleteEventAction}>Delete</button>
             </div>
         </div>
         </>
