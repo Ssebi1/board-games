@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import EventsStyle from '../style/events.module.css'
 import {RiVipCrown2Fill} from "react-icons/ri";
 import {FaMapLocation} from "react-icons/fa6";
@@ -13,7 +13,7 @@ import {MdClose} from "react-icons/md";
 import Spinner from "../components/Spinner";
 import Select from "react-select";
 import {deleteEvent, getEvent, reset, resetEvent, updateEvent} from "../features/events/eventsSlice";
-import {IoGameController} from "react-icons/io5";
+import {IoGameController, IoPersonSharp} from "react-icons/io5";
 import {FaBan, FaCheck, FaGamepad} from "react-icons/fa";
 import Topbar from "../components/Topbar";
 import toast from "react-hot-toast";
@@ -27,6 +27,9 @@ function EventModal() {
     const {games, isLoadingGames, isErrorGames, messageGames, isSuccessGames} = useSelector((state) => state.games)
     const {event, isLoadingEvent, isErrorEvent, messageEvent, isSuccessEvent} = useSelector((state) => state.events)
     const [suggestedGames, setSuggestedGames] = React.useState([])
+    const [isOwner, setIsOwner] = useState(false)
+    const [isJoined, setIsJoined] = useState(false)
+    const [isSuggestedDisabled, setIsSuggestedDisabled] = useState(false)
 
     useEffect(() => {
         console.log(id)
@@ -48,6 +51,20 @@ function EventModal() {
             setSuggestedGames(newGamesOptions)
         }
     }, [games, isSuccessGames])
+
+    useEffect(() => {
+        if (event && isSuccessEvent) {
+            if (event.host._id === user._id) {
+                setIsOwner(true)
+            }
+            setIsJoined(false)
+            event.participants.map((participant) => {
+                if (participant._id === user._id) {
+                    setIsJoined(true)
+                }
+            })
+        }
+    }, [event, isSuccessEvent])
 
     const sendUpdateEvent = (e) => {
         let current_games_ids = event.suggested_games.map((game) => {
@@ -93,10 +110,49 @@ function EventModal() {
         dispatch(updateEvent(data))
     }
 
+    const joinEvent = () => {
+        let current_participants_ids = event.participants.map((user) => {
+            return user._id
+        })
+        const data = {
+            id: event._id,
+            participants: current_participants_ids.concat(user._id)
+        }
+        dispatch(updateEvent(data))
+    }
+
+    const leaveEvent = () => {
+        let current_participants_ids = event.participants.map((user) => {
+            return user._id
+        })
+        let participants_ids = current_participants_ids.filter((part) => {
+            return part !== user._id
+        })
+        const data = {
+            id: event._id,
+            participants: participants_ids
+        }
+        dispatch(updateEvent(data))
+    }
+
     const deleteEventAction = () => {
         dispatch(deleteEvent(id))
         navigate('/events')
         toast.success('Event deleted successfully')
+    }
+
+    const removeParticipant = (user_id) => {
+        let current_participants_ids = event.participants.map((user) => {
+            return user._id
+        })
+        let participants_ids = current_participants_ids.filter((part) => {
+            return part !== user_id
+        })
+        const data = {
+            id: event._id,
+            participants: participants_ids
+        }
+        dispatch(updateEvent(data))
     }
 
     if (isLoadingGames || isLoadingAuth || isLoadingEvent) {
@@ -122,21 +178,32 @@ function EventModal() {
                     classNamePrefix="select"
                     onChange={(e) => {selectEventGame(e)}}
                     value={{value: event.game ? event.game._id : null, label: event.game ? event.game.title : null}}
+                    isDisabled={!isOwner}
                 />
             </div>
             <div>
                 <div className={EventsStyle.label}>Players</div>
                 <div className={EventsStyle.eventModalPlayers}>
                     <div className={EventsStyle.eventHost}><RiVipCrown2Fill /> {event.host.name}</div>
+                    {event.participants.map((user) => {
+                        return (
+                            <div className={EventsStyle.eventHost}><IoPersonSharp /> {user.name} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeParticipant(user._id)}}/></div>
+                        )
+                    })}
                 </div>
             </div>
             <div>
                 <div className={EventsStyle.label}>Suggested games</div>
                 <div className={EventsStyle.eventModalSuggestedGames}>
                     {event.suggested_games.map((game) => {
-                        return (
-                            <div className={EventsStyle.eventHost}><FaGamepad /> {game.title} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeGame(game._id)}}/> <FaCheck style={{color: 'green', cursor: 'pointer'}} onClick={() => {selectEventGame2(game._id)}}/></div>
-                        )
+                        if (isOwner) {
+                            return (
+                                <div className={EventsStyle.eventHost}><FaGamepad /> {game.title} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeGame(game._id)}}/> <FaCheck style={{color: 'green', cursor: 'pointer'}} onClick={() => {selectEventGame2(game._id)}}/></div>                            )
+                        } else {
+                            return (
+                                <div className={EventsStyle.eventHost}><FaGamepad /> {game.title}</div>
+                            )
+                        }
                     })}
                 </div>
             </div>
@@ -150,6 +217,7 @@ function EventModal() {
                     classNamePrefix="select"
                     onChange={(e) => {sendUpdateEvent(e)}}
                     value={null}
+                    isDisabled={!(isOwner || (!isOwner && isJoined))}
                 />
             </div>
             <div className={EventsStyle.eventRow}>
@@ -158,8 +226,21 @@ function EventModal() {
                 <div className={EventsStyle.eventModalLocation}><FaMapLocation /> {event.location}</div>
             </div>
             <div className={EventsStyle.eventRow} style={{margin: '0 auto', marginTop: '30px'}}>
-                <button className={EventsStyle.eventModalButton}>Start</button>
-                <button className={EventsStyle.eventModalButton} onClick={deleteEventAction}>Delete</button>
+                { isOwner ? (
+                    <>
+                        <button className={EventsStyle.eventModalButton}>Start</button>
+                        <button className={EventsStyle.eventModalButton} onClick={deleteEventAction}>Delete</button>
+                    </>
+                ) : (
+                    <>
+                    { !isJoined ? (
+                            <button className={EventsStyle.eventModalButton} onClick={joinEvent}>Join</button>
+                        ) : (
+                            <button className={EventsStyle.eventModalButton} onClick={leaveEvent}>Leave</button>
+                        )
+                    }
+                    </>
+                )}
             </div>
         </div>
         </>
