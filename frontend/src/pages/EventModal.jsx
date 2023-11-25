@@ -155,6 +155,22 @@ function EventModal() {
         dispatch(updateEvent(data))
     }
 
+    const startEvent = () => {
+        const data = {
+            id: event._id,
+            status: 'started'
+        }
+        dispatch(updateEvent(data))
+    }
+
+    const endEvent = () => {
+        const data = {
+            id: event._id,
+            status: 'ended'
+        }
+        dispatch(updateEvent(data))
+    }
+
     if (isLoadingGames || isLoadingAuth || isLoadingEvent) {
         return <Spinner/>
     }
@@ -178,7 +194,7 @@ function EventModal() {
                     classNamePrefix="select"
                     onChange={(e) => {selectEventGame(e)}}
                     value={{value: event.game ? event.game._id : null, label: event.game ? event.game.title : null}}
-                    isDisabled={!isOwner}
+                    isDisabled={!isOwner || event.status !== 'created'}
                 />
             </div>
             <div>
@@ -186,9 +202,15 @@ function EventModal() {
                 <div className={EventsStyle.eventModalPlayers}>
                     <div className={EventsStyle.eventHost}><RiVipCrown2Fill /> {event.host.name}</div>
                     {event.participants.map((user) => {
-                        return (
-                            <div className={EventsStyle.eventHost}><IoPersonSharp /> {user.name} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeParticipant(user._id)}}/></div>
-                        )
+                        if (isOwner && event.status === 'created')
+                            return (
+                                <div className={EventsStyle.eventHost}><IoPersonSharp /> {user.name} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeParticipant(user._id)}}/></div>
+                            )
+                        else {
+                            return (
+                                <div className={EventsStyle.eventHost}><IoPersonSharp /> {user.name}</div>
+                            )
+                        }
                     })}
                 </div>
             </div>
@@ -196,7 +218,7 @@ function EventModal() {
                 <div className={EventsStyle.label}>Suggested games</div>
                 <div className={EventsStyle.eventModalSuggestedGames}>
                     {event.suggested_games.map((game) => {
-                        if (isOwner) {
+                        if (isOwner && event.status === 'created') {
                             return (
                                 <div className={EventsStyle.eventHost}><FaGamepad /> {game.title} <FaBan style={{color: 'mediumvioletred', cursor: 'pointer'}} onClick={() => {removeGame(game._id)}}/> <FaCheck style={{color: 'green', cursor: 'pointer'}} onClick={() => {selectEventGame2(game._id)}}/></div>                            )
                         } else {
@@ -217,7 +239,7 @@ function EventModal() {
                     classNamePrefix="select"
                     onChange={(e) => {sendUpdateEvent(e)}}
                     value={null}
-                    isDisabled={!(isOwner || (!isOwner && isJoined))}
+                    isDisabled={!(isOwner || (!isOwner && isJoined)) || event.status !== 'created'}
                 />
             </div>
             <div className={EventsStyle.eventRow}>
@@ -228,8 +250,23 @@ function EventModal() {
             <div className={EventsStyle.eventRow} style={{margin: '0 auto', marginTop: '30px'}}>
                 { isOwner ? (
                     <>
-                        <button className={EventsStyle.eventModalButton}>Start</button>
-                        <button className={EventsStyle.eventModalButton} onClick={deleteEventAction}>Delete</button>
+                        { event.status === 'created' ? (
+                            <button className={EventsStyle.eventModalButton} onClick={startEvent}>Start</button>
+                            ) : (
+                                <></>
+                            )}
+                            { event.status === 'started' ? (
+                                <button className={EventsStyle.eventModalButton} onClick={endEvent}>End</button>
+                            ) : (
+                                <></>
+                            )
+                        }
+
+                        { event.status !== 'ended' && event.status !== 'started' ? (
+                            <button className={EventsStyle.eventModalButton} onClick={deleteEventAction}>Delete</button>
+                        ) : (
+                            <></>
+                        )}
                     </>
                 ) : (
                     <>

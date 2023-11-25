@@ -50,7 +50,7 @@ function Client() {
             <div className='contentContainer' style={{flexDirection: 'column'}}>
                 <div className={EventsStyle.header}>
                     <div className={EventsStyle.title}>Recommended games</div>
-                    <Link to='/events' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
+                    <Link to='/client/games' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
                 </div>
                 <div className={GamesClientsStyle.gamesContainer}>
                     {recGames && recGames.map((game) => (
@@ -59,10 +59,10 @@ function Client() {
                 </div>
                 <div className={EventsStyle.header}>
                     <div className={EventsStyle.title}>Recommended events</div>
-                    <Link to='/client/games' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
+                    <Link to='/events' className={EventsStyle.addEvent}>View more <MdOutlineArrowForwardIos /></Link>
                 </div>
                 <div className={EventsStyle.container}>
-                    {events && events.map((event) => (
+                    {events && events.filter(event => event.status !== 'ended').map((event) => (
                         <Event event={event}/>
                     ))}
                 </div>

@@ -46,11 +46,16 @@ function Events() {
                         <Link to='/events/add' className={EventsStyle.addEvent}><FaPlus /> Add event</Link>
                     </div>
                     <div className={EventsStyle.container}>
-                        {events && events.map((event) => (
+                        {events && events.filter(event => event.status !== 'ended').map((event) => (
                             <Event event={event}/>
                         ))}
                     </div>
                     <div className={EventsStyle.title}>Past events</div>
+                    <div className={EventsStyle.container}>
+                        {events && events.filter(event => event.status === 'ended').map((event) => (
+                            <Event event={event}/>
+                        ))}
+                    </div>
                 </>
             </div>
         </>
