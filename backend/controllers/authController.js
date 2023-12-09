@@ -126,8 +126,22 @@ const updateAccount = asyncHandler(async (req, res) => {
     })
 })
 
+// @desc Delete account
+// @route DELETE /api/auth/
+// @access Private
+const deleteAccount = asyncHandler(async (req, res) => {
+    if (!req.user) {
+        res.status(400)
+        throw new Error('Unauthorized')
+    }
+    const userEmail = req.user.email
+    await User.findByIdAndDelete(req.user.id)
+    res.status(200).json({userEmail})
+})
+
 module.exports = {
     login,
     register,
-    updateAccount
+    updateAccount,
+    deleteAccount
 }
