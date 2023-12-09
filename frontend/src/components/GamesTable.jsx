@@ -18,7 +18,7 @@ function GamesTable({games, limit, showActions, deleteGameAction}) {
             </tr>
             </thead>
             <tbody>
-            { games.slice(0, limit).map((game) => {
+            { games && games.length > 0 && games.slice(0, limit).map((game, index) => {
                 return(
                     <tr>
                         <td>{game.title}</td>
