@@ -32,6 +32,8 @@ app.use('/api/events', require('./routes/eventRoutes'))
 app.use(errorHandler)
 
 // start app
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log('Server started on port ' + port)
 })
+
+module.exports = server
