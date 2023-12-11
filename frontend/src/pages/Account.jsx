@@ -41,9 +41,9 @@ function Account() {
     })
 
     const resetFormData = () => {
-        if (user) {
+        if (user && user.pref_games) {
             let newSelectedGamesOptions = []
-            user.pref_games.map((game) => {
+             user.pref_games.map((game) => {
                 newSelectedGamesOptions.push({value: game._id, label: game.title})
             })
             setFormData({

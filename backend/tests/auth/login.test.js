@@ -1,6 +1,6 @@
 const request = require('supertest');
-const server = require('../server');
-const resetDb = require('./utils');
+const server = require('../../server');
+const resetDb = require('../utils');
 const mongoose = require('mongoose');
 
 describe('Auth Routes - Login', () => {

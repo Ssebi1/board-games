@@ -1,8 +1,8 @@
 // example.test.js
 const request = require('supertest');
-const server = require('../server')
-const User = require('../models/userModel')
-const resetDb = require("./utils");
+const server = require('../../server')
+const User = require('../../models/userModel')
+const resetDb = require("../utils");
 const mongoose = require('mongoose');
 
 describe('Auth Routes - Register', () => {
