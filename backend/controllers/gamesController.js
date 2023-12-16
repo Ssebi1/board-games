@@ -19,7 +19,8 @@ const createGame = asyncHandler(async  (req, res) => {
         title: req.body.title,
         rules: req.body.rules,
         min_players: req.body.min_players,
-        max_players: req.body.max_players
+        max_players: req.body.max_players,
+        image: req.body.image
     })
     res.status(200).json(game)
 })

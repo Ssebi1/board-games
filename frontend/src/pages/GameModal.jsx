@@ -39,6 +39,7 @@ function GameModal() {
             <Link to={'/client/games'} className={GamesClientsStyle.closeModal}><MdClose /></Link>
             <div className={GamesClientsStyle.gameTitle}>{game.title}</div>
             <div className={GamesClientsStyle.gameRules}>{game.rules}</div>
+            <div className={GamesClientsStyle.eventImage2} style={{backgroundImage: `url(${game.image})`}}></div>
             <div className={GamesClientsStyle.gamePlayers}><MdPeopleAlt /> {game.min_players}-{game.max_players}</div>
         </div>
         </>

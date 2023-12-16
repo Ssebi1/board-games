@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link, useNavigate, useParams} from 'react-router-dom'
-import {logout} from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -9,6 +8,8 @@ import Topbar from "../components/Topbar";
 import GamesStyle from '../style/games.module.css'
 import {AiOutlinePlusCircle} from "react-icons/ai";
 import {createGame, getGame, reset, resetGame, updateGame} from "../features/games/gamesSlice";
+import EventAddStyle from "../style/event-add.module.css";
+import {convertToBase64} from "../utils/ConvertToBase64";
 
 function GamePage({type}) {
     const navigate = useNavigate()
@@ -21,7 +22,8 @@ function GamePage({type}) {
         title: '',
         rules: '',
         min_players: '2',
-        max_players: '2'
+        max_players: '2',
+        image: null
     })
     const [gameChanged, setGameChanged] = useState(false)
 
@@ -50,7 +52,8 @@ function GamePage({type}) {
                 title: game.title,
                 rules: game.rules,
                 min_players: game.min_players,
-                max_players: game.max_players
+                max_players: game.max_players,
+                image: game.image
             }))
         }
     }, [game])
@@ -76,6 +79,18 @@ function GamePage({type}) {
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value
+        }))
+    }
+
+    const onChangeImage = async (e) => {
+        const file = e.target.files[0]
+        let base64 = null
+        if (file) {
+            base64 = await convertToBase64(file)
+        }
+        setFormData((prevState) => ({
+            ...prevState,
+            image: base64
         }))
     }
 
@@ -108,6 +123,16 @@ function GamePage({type}) {
                         <div className={GamesStyle.addTitle}>Add new game</div>
                     )}
                     <div className={GamesStyle.formInputs}>
+                        <div className={GamesStyle.addItemDouble}>
+                            <div className={GamesStyle.addItem}>
+                                <label className={GamesStyle.addItemLabel}>Image</label>
+                                <input style={{height: '180px'}} type='file' name='image' accept=".jpg, .jpeg, .png" disabled={type === 'view'} className={GamesStyle.addItemInput} onChange={onChangeImage}/>
+                            </div>
+                            <div className={GamesStyle.addItem}>
+                                <label className={EventAddStyle.inputLabel}>Image preview</label>
+                                <div style={{backgroundImage: `url(${formData.image})`}} className={EventAddStyle.imagePreview}></div>
+                            </div>
+                        </div>
                         <div className={GamesStyle.addItem}>
                             <label className={GamesStyle.addItemLabel}>Title</label>
                             <input type='text' className={GamesStyle.addItemInput} name='title' value={formData.title} onChange={onChange} disabled={type === 'view'}/>

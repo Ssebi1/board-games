@@ -35,6 +35,7 @@ function App() {
               <Route path='/game/:id' element={<GameModal />} />
               <Route path='/games/:id/view' element={<GamePage type='view' />} />
               <Route path='/games/:id/edit' element={<GamePage type='edit' />} />
+              <Route path='/games/add' element={<GamePage type='add' />} />
               <Route path='/badges' element={<Badges />} />
               <Route path='/events' element={<Events />} />
               <Route path='/event/:id' element={<EventModal />} />
