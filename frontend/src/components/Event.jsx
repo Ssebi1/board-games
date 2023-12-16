@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 function Event({event}) {
     return (
         <Link to={`/event/${event._id}`} className={EventsStyle.eventContainer}>
+            <div className={EventsStyle.eventImage} style={{backgroundImage: `url(${event.image})`}}></div>
             <div className={EventsStyle.eventTitle}>{event.title}</div>
             <div className={EventsStyle.eventHost}><RiVipCrown2Fill /> {event.host.name}</div>
             <div className={EventsStyle.eventLocation}><FaMapLocation /> {event.location}</div>

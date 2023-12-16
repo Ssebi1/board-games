@@ -17,6 +17,7 @@ const createEvent = asyncHandler(async  (req, res) => {
 
     const event = await Event.create({
         title: req.body.title,
+        image: req.body.image,
         date: req.body.date,
         location: req.body.location,
         time: req.body.time,

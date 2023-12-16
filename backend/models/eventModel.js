@@ -5,6 +5,10 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: ['true', 'Please add a title']
     },
+    image: {
+        type: String,
+        default: 'https://w0.peakpx.com/wallpaper/326/98/HD-wallpaper-board-games-colorful-dice-game-parcheesi.jpg'
+    },
     game: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Game'

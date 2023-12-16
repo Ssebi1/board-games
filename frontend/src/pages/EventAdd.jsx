@@ -6,13 +6,13 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import Topbar from "../components/Topbar";
 import EventAddStyle from '../style/event-add.module.css'
-import {reset} from "../features/games/gamesSlice";
 import {MdClose} from "react-icons/md";
 import AccountStyle from "../style/account.module.css";
 
 import Papa from 'papaparse';
 import regionsFile from '../data/romania_regions.csv'
 import {createEvent, resetEvent} from "../features/events/eventsSlice";
+import {convertToBase64} from "../utils/ConvertToBase64";
 
 function EventAdd() {
     const navigate = useNavigate()
@@ -26,7 +26,8 @@ function EventAdd() {
         title: '',
         location: 'Bucuresti',
         date: new Date().toISOString().split("T")[0],
-        time: ''
+        time: '',
+        image: null
     })
 
     useEffect(() => {
@@ -68,6 +69,19 @@ function EventAdd() {
             ...prevState,
             [e.target.name]: e.target.value
         }))
+        console.log(formData)
+    }
+
+    const onChangeImage = async (e) => {
+        const file = e.target.files[0]
+        let base64 = null
+        if (file) {
+            base64 = await convertToBase64(file)
+        }
+        setFormData((prevState) => ({
+            ...prevState,
+            image: base64
+        }))
     }
 
     const submit = () => {
@@ -80,10 +94,20 @@ function EventAdd() {
 
     return (
         <>
-            <Topbar user={user} activeTile={'badges'}/>
+            <Topbar user={user}/>
             <div className={EventAddStyle.container}>
                 <Link to={'/events'} className={EventAddStyle.closeModal}><MdClose /></Link>
                 <div className={EventAddStyle.title}>Create event</div>
+                <div className={EventAddStyle.doubleInputRow}>
+                    <div className={EventAddStyle.doubleInputElement}>
+                        <label className={EventAddStyle.inputLabel}>Image</label>
+                        <input style={{height: '180px'}} type='file' name='image' accept=".jpg, .jpeg, .png" className={EventAddStyle.input} onChange={onChangeImage}/>
+                    </div>
+                    <div className={EventAddStyle.doubleInputElement}>
+                        <label className={EventAddStyle.inputLabel}>Image preview</label>
+                        <div style={{backgroundImage: `url(${formData.image})`}} className={EventAddStyle.imagePreview}></div>
+                    </div>
+                </div>
                 <div className={EventAddStyle.inputRow}>
                     <label className={EventAddStyle.inputLabel}>Title</label>
                     <input type='text' name='title' className={EventAddStyle.input} value={formData.title} onChange={onChange}/>
