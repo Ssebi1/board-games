@@ -28,6 +28,9 @@ app.use('/api/games', require('./routes/gameRoutes'))
 // events routes
 app.use('/api/events', require('./routes/eventRoutes'))
 
+// badges routes
+app.use('/api/badges', require('./routes/badgeRoutes'))
+
 // error handler
 app.use(errorHandler)
 
