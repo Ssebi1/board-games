@@ -1,0 +1,7 @@
+<section class="faq">
+    <div class="faq-container">
+        <% questions.forEach(function(question){ %>
+            <%- include('question', {question: question}); %>
+        <% }); %>
+    </div>
+</section>

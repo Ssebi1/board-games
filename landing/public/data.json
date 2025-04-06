@@ -1,0 +1,70 @@
+{
+    "cards": [
+        {
+            "icon": "fa fa-calendar",
+            "title": "Easy Event Management",
+            "description": "Quickly create, organize, and discover board game events."
+        },
+        {
+            "icon": "fas fa-dice",
+            "title": "Game Voting & Suggestions",
+            "description": "Vote for your favorite games or suggest new ones for upcoming events."
+        },
+        {
+            "icon": "fa fa-check-circle",
+            "title": "Simple Event Check-In",
+            "description": "Seamlessly confirm your participation and track attendance."
+        },
+        {
+            "icon": "fa fa-star",
+            "title": "Rewards & Achievements",
+            "description": "Earn badges and recognize top players at every event."
+        },
+        {
+            "icon": "fa fa-universal-access",
+            "title": "Safe & Friendly Community",
+            "description": "Easily report inappropriate behavior and help keep the community welcoming."
+        },
+        {
+            "icon": "fas fa-user-friends",
+            "title": "Player Preferences & Matchmaking",
+            "description": "Get matched with players who enjoy the same games as you. The app considers player preferences to suggest suitable event groups and optimize game selection for the best experience."
+        },
+        {
+            "icon": "fa fa-gamepad",
+            "title": "Event Stats & History",
+            "description": "Track your games, wins, badges, and participation over time. View detailed stats for your gaming activity, including past events, favorite games, and earned achievements."
+        },
+        {
+            "icon": "fas fa-camera",
+            "title": "Community Recognition & Social Features",
+            "description": "Vote for MVPs, comment on games, and build your gamer profile. Recognize top players at each event, leave feedback, and grow your presence within the community."
+        }
+    ],
+    "questions": [
+        {
+            "title":"Is the platform free to use?",
+            "answer":"Yes! Creating an account, joining events, and using core features are completely free. We may add premium features in the future, but the essentials will always remain free."
+        },
+        {
+            "title":"Do I need to host an event to use the app?",
+            "answer":"Not at all. You can join public events created by others or just explore the platform and vote on game preferences."
+        },
+        {
+            "title":"Can I use the app for private game nights with friends?",
+            "answer":"Absolutely. You can create private events and share the link only with people you invite."
+        },
+        {
+            "title":"How are games chosen for an event?",
+            "answer":"Attendees can vote for their favorite games or suggest new ones. Once the required number of players is reached, the most-voted games are selected automatically."
+        },
+        {
+            "title":"What kind of badges can I earn?",
+            "answer":"You can earn badges for things like attending multiple events, hosting games, being voted MVP, or introducing new players to the platform."
+        },
+        {
+            "title":"Is there a mobile version or app?",
+            "answer":"A mobile app is currently in development! Until then, the platform works great on mobile browsers."
+        }
+    ]
+}

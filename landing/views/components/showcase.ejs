@@ -1,0 +1,28 @@
+<section class="showcase">
+    <div id="particles-js"></div>
+    <div id="particles-js-mobile"></div>
+    <div class="showcase-container">
+        <div class="showcase-text">
+            <h1>Discover. Connect. <span style="color: #3c71db">Play.</span></h1>
+            <h2>The ultimate platform for discovering new games,<span class="showcase-text-break"><br></span> organizing fun-filled events, and connecting with fellow board game enthusiasts, <span class="showcase-text-break"><br></span>whether you're a casual player or a competitive strategist.</h2>
+            <div class="button buton_cere_oferta">Join for free</div>
+            <div class="button buton_contact">Log in</div>
+        </div>
+        <div class="cards-grid">
+            <% for(var i=0; i<cards.length;i++) {%>
+                <%- include('showcase-card', {card: cards[i]}); %>
+            <% } %>
+        </div>
+        <!-- Mobile slider -->
+        <div class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <% cards.forEach(function(card){ %>
+                        <%- include('showcase-card-mobile', {card: card}); %>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <div class="viewMore">Vezi mai mult<br><i class="fas fa-chevron-down"></i></div>
+    </div>
+</section>

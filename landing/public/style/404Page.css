@@ -1,0 +1,75 @@
+@font-face {
+    font-family: poppins_regular;
+    src: url(../fonts/Poppins-Regular.ttf), local("Arial");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: poppins_semibold;
+    src: url(../fonts/Popins-SemiBold.ttf), local("Arial");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: poppins_bold;
+    src: url(../fonts/Poppins-Bold.ttf), local("Arial");
+    font-display: swap;
+}
+
+html,
+body {
+    min-width: 100%;
+    scroll-behavior: smooth;
+}
+
+html{
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: poppins_regular;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    background-color: #12253F;
+    color:white;
+}
+
+.container{
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin:0 auto;
+    text-align: center;
+}
+
+.icon{
+    margin: 0 auto;
+    font-size:100px;
+}
+
+.bigTitle{
+    margin:0 auto;
+    font-size:40px;
+    margin-top:30px;
+}
+
+.smallTitle{
+    margin:0 auto;
+    font-size:16px;
+    margin-top:10px;
+    text-decoration: none;
+    color:white;
+}
+
+.smallTitle:hover{
+    color: #cccccc;
+}
+

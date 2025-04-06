@@ -1,0 +1,23 @@
+<section class="review">
+    <div class="review-container">
+        <form action="/ofera_rating" method="POST" class="slider-form">
+            <h2 class="title">How was your experience?</h2>
+            <div id="rating-slider">
+                <input type="radio" name="rating-amount" id="1" value="1" required>
+                <label for="1" data-rating="Very bad"></label>
+                <input type="radio" name="rating-amount" id="2" value="2" required>
+                <label for="2" data-rating="Bad"></label>
+                <input type="radio" name="rating-amount" id="3" value="3" required>
+                <label for="3" data-rating="Neutral"></label>
+                <input type="radio" name="rating-amount" id="4" value="4" required>
+                <label for="4" data-rating="Good"></label>
+                <input type="radio" name="rating-amount" id="5" value="5" required checked="checked">
+                <label for="5" data-rating="Great"></label>
+                <div id="rating-pos"></div>
+            </div>
+            <input type="text" name="rating" class="rating-value" style="display: none;">
+            <textarea name="review" spellcheck="false" placeholder="Leave us a sincere opinion!"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
